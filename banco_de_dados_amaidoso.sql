@@ -1,8 +1,20 @@
 # CRIAÇÃO DO BANCO DE DADOS
-create database amaidoso;
-use amaidoso;
+create database amaidoso; -- criando o bd
+use amaidoso; -- usando o bd
 
 #CRIAÇÃO DAS TABELAS
+
+# TABELA RESPONSÁVEL
+create table responsavel(
+
+	id_responsavel integer primary key auto_increment,
+    nome_responsavel varchar(100) not null,
+    cpf char(11), -- char? REVER ISSO DEPOIS
+    telefone varchar(20) not null,
+    email varchar(100),
+    senha varchar(15) not null
+    -- dt_cadastro date not null  // ISSO É REALMENTE NECESSÁRIO?
+);
 
 # TABELA IDOSO
 create table idoso(
@@ -29,21 +41,9 @@ create table medicacao(
     horario datetime,
     id_idoso integer not null,
     foreign key(id_idoso) references idoso(id_idoso)
-    
 );
 # TABELA COMPROMISSO
 -- create table compromisso();
 
-# TABELA RESPONSÁVEL
-create table responsavel(
-	id_responsavel integer primary key auto_increment,
-    nome_responsavel varchar(100) not null,
-    cpf char(11),
-    telefone varchar(20) not null,
-    email varchar(100),
-    senha varchar(15) not null
-    -- dt_cadastro date not null // ISSO É REALMENTE NECESSÁRIO?
-    
-);
 # TABELA ANOTAÇÕES
 -- create table anotacoes
