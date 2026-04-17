@@ -1,6 +1,13 @@
 # RELACIONAMENTO DAS TABELAS
 
--- Responsavel (0:N - (1:N) - 1:1) Idoso
--- Responsavel (0:N) Lembrete
--- Responsavel (
--- Idoso ((0:N)) Medicamento
+-- Responsavel (1:N) Idoso
+
+
+-- Idoso (1:N) Medicação
+-- Idoso (1:N) Lembrete
+-- Idoso (1:N) Observação
+-- Idoso (1:N) Anotação
+
+
+-- Responsavel escrever algo sobre o idoso (Observação)
+-- Idoso escrever algo sobre o dia-a-dia dele (Anotação)

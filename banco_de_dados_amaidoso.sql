@@ -9,44 +9,46 @@ create table responsavel(
 
 	id_responsavel integer primary key auto_increment,
     nome_responsavel varchar(100) not null,
-    nome_usuario varchar(15) not null,
-    telefone varchar(20),
-    email varchar(50) unique not null, -- Para não existir email duplicado no registrar
-    senha varchar(20) not null
+    
+    -- LOGIN E IDENTIFICAÇÃO
+	email varchar(200) unique not null,
+    senha varchar(16) not null
 );
 
 # TABELA IDOSO
 create table idoso(
-	-- nome exibição para a tabela idoso
-    -- Login por cpf, não é necessário nome_usuário
-	id_idoso integer primary key auto_increment,
-	nome_idoso varchar(100) not null,
-    nome_usuario varchar(15) not null,
-	dt_nasc date, -- Realmente Necessário?
-	sexo char(1), -- Faz sentido
-	cpf char(11) unique not null, -- Para permitir apenas um cpf por idoso e esse valor não pode ser nulo
-    observacoes text,
-    senha varchar(20) not null,
+
+    id_idoso integer primary key auto_increment,
+    nome_idoso varchar(100) not null, -- armazena o nome completo do idoso
     
-	-- RELAÇÃO COM CHAVE ESTRANGEIRA
+    -- LOGIN E IDENTIFICAÇÃO
+	cpf varchar(11) unique not null, -- para não existir nenhum usuário idoso com mesmo cpf
+    senha varchar(16) not null, -- senha de login
+    
+    -- DADOS PESSOAIS
+    data_nascimento date not null, -- armazena a data de nascimento
+
+    -- RELACIONAMENTO
     id_responsavel integer not null,
-	foreign key(id_responsavel) references responsavel(id_responsavel)
-	-- references responsavel(id_responsavel)
+    foreign key(id_responsavel) references responsavel(id_responsavel)
+    on delete cascade -- Se o responsável sair, apaga o idoso
 );
 
 # TABELA MEDICAÇÃO
 create table medicacao(
 
 	id_medicacao integer primary key auto_increment,
-    nome_medicamento varchar(100),
-    dosagem varchar(100),
-    -- unidade de medida (Para comprimidos)
-    dt_hora datetime,
-    status_tomado boolean default false, -- false = pendente, true = confirmado
+    nome_medicamento varchar(80) not null,
+    
+    -- INFORMAÇÃO DA MEDICAÇÃO
+    valor_dose decimal(10,2) not null, -- o valor da dose é como o 100 de 100mg ou o 20 de 20 gotas
+    unidade_medida enum('mg','ml','gotas','colher','comprimido') not null, -- o enum cria uma lista para que nenhum valor fora do permitido seja registrado nessa coluna
+    data_hora datetime not null,
+    status_tomado boolean default false, -- status para saber se o idoso tomou a medicação. sendo o valor falso como padrão
     
     id_idoso integer not null,
     foreign key(id_idoso) references idoso(id_idoso)
-    
+    on delete cascade -- Quando o registro do idoso for excluido apaga o esse registro também
 );
 # TABELA LEMBRETE
 create table lembrete(

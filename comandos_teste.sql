@@ -17,3 +17,4 @@ drop table medicacao;
 delete from responsavel;
 delete from idoso;
 delete from medicacao;
+
